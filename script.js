@@ -1,9 +1,8 @@
-
 let moreOrderBtn = document.querySelector('#addToOrder');
 let clearAllBtn = document.querySelector('#clearAll');
 
 let i = 1; // i is a counter 
-function increment(){
+function increment() {
     i += 1;
 }
 
@@ -13,12 +12,12 @@ let loadCalc = () => {
     clearAllBtn.removeAttribute('style');
     moreOrderBtn.removeAttribute('style');
     document.querySelector('#sub').innerHTML = 0;
-    // document.querySelector('#alertBox').removeAttribute('class');
+
     document.querySelector('.form-field').innerHTML = `
         <div class="firstOrder">
             <ul>
                 <li>
-                    <input type ="text" class = "item" id = "item${i}" required placeholder = "Item" autofocus=""/>
+                    <input type ="text" class = "item" id = "item${i}" required placeholder = "Item" autofocus/>
                 </li>
                 <li>
                     <input type ="number" class = "unitprice" id = "unitprice${i}" required placeholder = "Unit Price" />
@@ -56,10 +55,12 @@ let newFormField = (event) => {
             </li>
         </ul>
     `;
+
     const form = document.querySelector('.form-field');
     form.insertBefore(newDiv, form.childNodes[0]);
-    document.querySelector(`#item${i-1}`).setAttribute('readonly', 'readonly');
-    document.querySelector(`#item${i-1}`).removeAttribute('class');
+    const item = document.querySelector(`#item${i-1}`);
+    item.setAttribute('readonly', 'readonly');
+    item.removeAttribute('class');
     document.querySelector(`#unitprice${i-1}`).setAttribute('readonly', 'readonly');
     document.querySelector(`#unitprice${i-1}`).removeAttribute('class');
     document.querySelector(`#quantity${i-1}`).setAttribute('readonly', 'readonly');
@@ -70,7 +71,7 @@ let newFormField = (event) => {
 moreOrderBtn.addEventListener('click', newFormField);
 
 
-let price = (event) =>{
+let price = (event) => {
     event.preventDefault();
     moreOrderBtn.disabled = true;
     let unitPrice = document.querySelector(`#unitprice${i}`).value.trim();
@@ -80,34 +81,36 @@ let price = (event) =>{
     let priceArray = document.querySelectorAll('.price');
     let subTotal = 0;
 
-    if(/^([A-Za-z0-9- ]){2,30}$/.test(item) && /^[0-9]\d*(\.\d+)?$/.test(unitPrice) && /^\+?[0-9][\d]*$/.test(quantity)){
-        document.querySelector(`#price${i}`).setAttribute('value', sub.toFixed(2));
-        moreOrderBtn.disabled = false;
-        moreOrderBtn.style.background = '#00994d';
-        moreOrderBtn.style.color = '#fff';
-        clearAllBtn.disabled = false;
-        clearAllBtn.style.background = '#cc0000'
-        clearAllBtn.style.color = '#fff';
+    const correctItem = /^([A-Za-z0-9- ]){2,30}$/.test(item);
+    const correctUnitprice = /^[0-9]\d*(\.\d+)?$/.test(unitPrice);
+    const correctQuantity = /^\+?[0-9][\d]*$/.test(quantity);
 
-        for(let j=0; j<priceArray.length; j++){
-            if(parseFloat(priceArray[j].value))
-                subTotal += parseFloat(priceArray[j].value);
-        }
-        document.querySelector('#sub').innerHTML = subTotal.toFixed(2);
-    }
-    else{
+    if (!correctItem || !correctQuantity || !correctUnitprice) {
         document.querySelector(`#price${i}`).setAttribute('value', '');
         moreOrderBtn.disabled = true;
         moreOrderBtn.removeAttribute('style');
 
-        for(let j=0; j<priceArray.length; j++){
-            if(parseFloat(priceArray[j].value))
+        for (let j = 0; j < priceArray.length; j++) {
+            if (parseFloat(priceArray[j].value))
                 subTotal += parseFloat(priceArray[j].value);
         }
         document.querySelector('#sub').innerHTML = subTotal.toFixed(2);
+        return;
     }
+    document.querySelector(`#price${i}`).setAttribute('value', sub.toFixed(2));
+    moreOrderBtn.disabled = false;
+    moreOrderBtn.style.background = '#00994d';
+    moreOrderBtn.style.color = '#fff';
+    clearAllBtn.disabled = false;
+    clearAllBtn.style.background = '#cc0000'
+    clearAllBtn.style.color = '#fff';
+
+    for (let j = 0; j < priceArray.length; j++) {
+        if (parseFloat(priceArray[j].value))
+            subTotal += parseFloat(priceArray[j].value);
+    }
+    document.querySelector('#sub').innerHTML = subTotal.toFixed(2);
 }
 document.addEventListener('keyup', price);
 
 clearAllBtn.addEventListener('click', loadCalc);
-
