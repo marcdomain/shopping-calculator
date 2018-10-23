@@ -70,3 +70,7 @@ h2{
 #clearAll{
 	margin-left: 5px;
 }
+.hint{
+	text-align: center;
+	color: lime;
+}
