@@ -1,0 +1,73 @@
+body{
+	margin: 0;
+	padding: 0;
+	background-color: #003366;
+	color: #fff;
+}
+div.container{
+	margin :0px  auto ;
+	width : 100%;
+	max-width : 1000px;
+}
+h1{
+	text-align: center ;
+	text-shadow: 0 3px 5px rgba(255,255,255,0.6);
+}
+form{
+	text-align: center;
+}
+input{
+	padding: 5px ;
+	font-family: Helvetica, Arial, sans-serif;
+	box-sizing: border-box ;
+	outline: none;
+	border-radius: 5px ;
+}
+input.item:hover,
+input.unitprice:hover,
+input.quantity:hover,
+input.item:focus,
+input.unitprice:focus,
+input.quantity:focus{
+	box-shadow: 1px 2px 5px 2px #000;
+	border: #cccccc 5px solid;
+}
+input.item, input.unitprice, input.quantity, span input{
+	width: 100%;
+}
+span input{
+	width: 50%;
+	background: #cccccc;
+}
+div.main{
+	border: solid #cccccc;
+	border-radius: 10px;
+	margin-bottom: 40px;
+	text-align: center;
+}
+div.form-field{
+	overflow: auto;
+	max-height: 200px;
+	overflow-y: auto;
+}
+ul li {
+	list-style: none;
+	display: inline-block;
+}
+h2{
+	color: #ff8533;
+}
+#addToOrder, #clearAll{
+	cursor: pointer;
+	border: #cccccc;
+	border-radius: 5px;
+	padding: 10px 10px;
+	font-weight: bolder;
+}
+#addToOrder{
+	margin-right: 5px;
+}
+#clearAll{
+	margin-left: 5px;
+}
+
